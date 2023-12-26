@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import  TaskModel from "../model/TaskModel";
+
+const props =  defineProps<{
+  tasks: TaskModel[];
+}>();
 </script>
 
 <template>
@@ -11,16 +16,9 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">Task1</th>
-      <td>Description</td>
-      <button type="button" class="btn btn-outline-primary">Edit</button>
-      <button type="button" class="btn btn-outline-primary">Complete</button>
-      <button type="button" class="btn btn-outline-primary">Delete</button>
-    </tr>
-    <tr>
-      <th scope="row">Task2</th>
-      <td>Description</td>
+    <tr v-for="task in props.tasks" :key="task.title">
+      <th scope="row">{{ task.title }}</th>
+      <td>{{ task.description }}</td>
       <button type="button" class="btn btn-outline-primary">Edit</button>
       <button type="button" class="btn btn-outline-primary">Complete</button>
       <button type="button" class="btn btn-outline-primary">Delete</button>

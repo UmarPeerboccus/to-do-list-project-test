@@ -1,5 +1,22 @@
 <script setup lang="ts">
-import DisplayView from "./DisplayView.vue";
+import { ref } from 'vue';
+import {useTaskStore} from "../stores/Tasks";
+
+import  TaskModel from "../model/TaskModel";
+import TaskList from "./TaskList.vue";
+
+const title = ref();
+const description = ref();
+const taskStore = useTaskStore();
+
+function AddNewTask()
+{
+    taskStore.addTask(new TaskModel(
+        title.value,
+        description.value,
+        false
+    ));
+}
 </script>
 
 <template>
@@ -7,24 +24,24 @@ import DisplayView from "./DisplayView.vue";
         <div class="col">
             <div class="mb-3">
                 <label class="form-label">Title</label>
-                <input type="text" class="form-control" placeholder="Title">
+                <input v-model="title" type="text" class="form-control" placeholder="Title">
             </div>
             <div class="mb-3">
                 <label class="form-label">Description</label>
-                <input type="text" class="form-control" placeholder="Description">
+                <input v-model="description" type="text" class="form-control" placeholder="Description">
             </div>
             <div class="mb-3">
-                <button type="button" class="btn btn-outline-primary">Add</button>
+                <button type="button" class="btn btn-outline-primary" @click="AddNewTask()">Add</button>
             </div>
         </div>
         <div class="col">
             <div class="mb-3">
                 <label class="form-label">Remaining Items</label>
-                <input type="text" class="form-control" placeholder="Counter">
+                <input type="text" class="form-control" placeholder="0">
             </div>
         </div>
         <div class="row">
-            <DisplayView/>
+            <TaskList :tasks="taskStore.tasks"/>
         </div>
     </div>
 </template>
