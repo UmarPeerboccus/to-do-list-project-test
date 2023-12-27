@@ -18,10 +18,9 @@ export const useTaskStore = defineStore("taskSotre", {
            });
         },
         completeTask(id: string, isComplete: boolean) {
-            const index = this.tasks.findIndex((t) => t.id == id);
+            const index = this.tasks.findIndex((t) => t.id === id);
 
-            if (index >= 0 || index !== undefined) {
-                console.log("change: " + this.tasks[index].isCompleted);
+            if (index !== -1) {
                 this.tasks[index].isCompleted = !isComplete;
             }
         }
