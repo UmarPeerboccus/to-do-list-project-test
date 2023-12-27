@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import {useTaskStore} from "../stores/Tasks";
-
+import {v4 as uuidv4} from 'uuid';
 import  TaskModel from "../model/TaskModel";
 import TaskList from "./TaskList.vue";
 
@@ -12,6 +12,7 @@ const taskStore = useTaskStore();
 function AddNewTask()
 {
     taskStore.addTask(new TaskModel(
+        uuidv4(),
         title.value,
         description.value,
         false

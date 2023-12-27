@@ -1,9 +1,15 @@
 <script setup lang="ts">
 import  TaskModel from "../model/TaskModel";
+import {useTaskStore} from "../stores/Tasks";
 
 const props =  defineProps<{
   tasks: TaskModel[];
 }>();
+const taskStore = useTaskStore();
+
+function DeleteTask(id: string) {
+  taskStore.deleteTask(id);
+}
 </script>
 
 <template>
@@ -21,7 +27,7 @@ const props =  defineProps<{
       <td>{{ task.description }}</td>
       <button type="button" class="btn btn-outline-primary">Edit</button>
       <button type="button" class="btn btn-outline-primary">Complete</button>
-      <button type="button" class="btn btn-outline-primary">Delete</button>
+      <button type="button" class="btn btn-outline-primary" @click="DeleteTask(task.id)">Delete</button>
     </tr>
   </tbody>
 </table>

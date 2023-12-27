@@ -12,5 +12,10 @@ export const useTaskStore = defineStore("taskSotre", {
         addTask(newTask: TaskModel) {
             this.tasks.push(newTask);
         },
+        deleteTask(id: string) {
+           this.tasks = this.tasks.filter((t) => {
+                return t.id !== id;
+           });
+        }
     },
 });
