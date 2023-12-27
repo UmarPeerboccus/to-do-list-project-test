@@ -10,6 +10,10 @@ const taskStore = useTaskStore();
 function DeleteTask(id: string) {
   taskStore.deleteTask(id);
 }
+
+function CompleteTask(id: string, isCompleted: boolean) {
+  taskStore.completeTask(id, isCompleted);
+}
 </script>
 
 <template>
@@ -26,7 +30,7 @@ function DeleteTask(id: string) {
       <th scope="row">{{ task.title }}</th>
       <td>{{ task.description }}</td>
       <button type="button" class="btn btn-outline-primary">Edit</button>
-      <button type="button" class="btn btn-outline-primary">Complete</button>
+      <button type="button" class="btn btn-outline-primary" @click="CompleteTask(task.id, task.isCompleted)">Complete</button>
       <button type="button" class="btn btn-outline-primary" @click="DeleteTask(task.id)">Delete</button>
     </tr>
   </tbody>

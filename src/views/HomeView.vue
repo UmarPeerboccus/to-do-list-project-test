@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed} from 'vue';
 import {useTaskStore} from "../stores/Tasks";
 import {v4 as uuidv4} from 'uuid';
 import  TaskModel from "../model/TaskModel";
@@ -18,6 +18,12 @@ function AddNewTask()
         false
     ));
 }
+
+const remainingTask = computed(() => {
+    return taskStore.tasks.filter((t) => {
+        return t.isCompleted === false;
+    }).length;
+});
 </script>
 
 <template>
@@ -37,8 +43,7 @@ function AddNewTask()
         </div>
         <div class="col">
             <div class="mb-3">
-                <label class="form-label">Remaining Items</label>
-                <input type="text" class="form-control" placeholder="0">
+                <label class="form-label">Remaining Items: {{ remainingTask }}</label>
             </div>
         </div>
         <div class="row">
