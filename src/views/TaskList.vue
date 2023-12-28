@@ -49,14 +49,22 @@ function saveEditTaskPopin() {
       <tr v-for="task in props.tasks" :key="task.title">
         <th scope="row">{{ task.title }}</th>
         <td>{{ task.description }}</td>
-        <button type="button" class="btn btn-outline-primary" @click="openEditTaskPopin(task.id)">Edit</button>
-        <button type="button" class="btn btn-outline-primary" @click="CompleteTask(task.id, task.isCompleted)">Complete</button>
-        <button type="button" class="btn btn-outline-primary" @click="DeleteTask(task.id)">Delete</button>
+        <div class="btn-group" role="group">
+          <button type="button" class="btn btn-secondary" data-bs-toggle="button" @click="CompleteTask(task.id, task.isCompleted)">Complete</button>
+          <button type="button" class="btn btn-secondary" @click="openEditTaskPopin(task.id)"
+          :class="{'disabled': task.isCompleted }"
+          >
+          Edit
+          </button>
+          <button type="button" class="btn btn-secondary" @click="DeleteTask(task.id)">Delete</button>
+        </div>
       </tr>
     </tbody>
   </table>
   <EditTaskPopin 
   :visible="isVisible"
+  :title="title"
+  :description="description"
   @closePopin="closeEditTaskPopin"
   @saveChanges="saveEditTaskPopin"
   >

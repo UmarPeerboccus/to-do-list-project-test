@@ -3,6 +3,8 @@
 
 defineProps<{
     visible: boolean;
+    title: string;
+    description: string;
 }>();
 
 const emit = defineEmits<{
@@ -33,7 +35,11 @@ function closePopin() {
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="closePopin()">Close</button>
-                <button type="button" class="btn btn-primary" @click="saveChanges()">Save changes</button>
+                <button type="button" class="btn btn-secondary" @click="saveChanges()"
+                :class="{'disabled': !title || !description }"
+                >
+                Save changes
+                </button>
             </div>
             </div>
         </div>

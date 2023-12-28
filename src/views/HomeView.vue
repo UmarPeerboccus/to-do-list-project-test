@@ -17,6 +17,9 @@ function AddNewTask()
         description.value,
         false
     ));
+
+    title.value = "";
+    description.value = "";
 }
 
 const remainingTask = computed(() => {
@@ -27,29 +30,34 @@ const remainingTask = computed(() => {
 </script>
 
 <template>
-    <div class="row">
-        <div class="col">
-            <div class="mb-3">
-                <label class="form-label">Title</label>
-                <input v-model="title" type="text" class="form-control" placeholder="Title">
+    <div class="w-50 position-absolute top-50 start-50 translate-middle">
+        <h3 class="mt-3 mb-3 text-center">TO DO LIST</h3>
+        <div class="input-group input-group-sm mb-3 p-2">
+            <span class="input-group-text">Remaining Items:</span>
+            <span class="input-group-text">{{ remainingTask }}</span>
+        </div>
+        <div class="d-flex flex-column mb-3">
+            <div class="input-group input-group-sm mb-3 p-2">
+                <span class="input-group-text">Title</span>
+                <input v-model="title" type="text" class="form-control" placeholder="Enter title">
             </div>
-            <div class="mb-3">
-                <label class="form-label">Description</label>
-                <input v-model="description" type="text" class="form-control" placeholder="Description">
+            <div class="input-group input-group-sm mb-3 p-2">
+                <span class="input-group-text">Description</span>
+                <input v-model="description" type="text" class="form-control" placeholder="Enter description">
             </div>
-            <div class="mb-3">
-                <button type="button" class="btn btn-outline-primary" @click="AddNewTask()">Add</button>
+            <div class="p-2">
+                <button type="button" class="btn btn-secondary" @click="AddNewTask()"
+                :class="{'disabled': !title || !description }"
+                >
+                Add
+                </button>
             </div>
         </div>
-        <div class="col">
-            <div class="mb-3">
-                <label class="form-label">Remaining Items: {{ remainingTask }}</label>
-            </div>
-        </div>
-        <div class="row">
+        
+        <div class="d-flex flex-column p-2">
             <TaskList :tasks="taskStore.tasks"/>
         </div>
-    </div>
+    </div>    
 </template>
 
 <style scoped></style>
