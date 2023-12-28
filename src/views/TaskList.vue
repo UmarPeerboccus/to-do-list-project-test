@@ -1,10 +1,16 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import  TaskModel from "../model/TaskModel";
 import {useTaskStore} from "../stores/Tasks";
+import EditTaskPopin from "./EditTaskPopin.vue";
 
 const props =  defineProps<{
   tasks: TaskModel[];
 }>();
+const isVisible = ref(false);
+const idToModify = ref();
+const title = ref();
+const description = ref();
 const taskStore = useTaskStore();
 
 function DeleteTask(id: string) {
@@ -14,27 +20,57 @@ function DeleteTask(id: string) {
 function CompleteTask(id: string, isCompleted: boolean) {
   taskStore.completeTask(id, isCompleted);
 }
+
+function openEditTaskPopin(id: string) {
+  isVisible.value = true;
+  idToModify.value = id;
+}
+
+function closeEditTaskPopin() {
+  isVisible.value = false;
+}
+
+function saveEditTaskPopin() {
+  taskStore.updateTask(idToModify.value, title.value, description.value);
+  isVisible.value = false;
+}
 </script>
 
 <template>
-    <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Task</th>
-      <th scope="col">Description</th>
-      <th scope="col">Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr v-for="task in props.tasks" :key="task.title">
-      <th scope="row">{{ task.title }}</th>
-      <td>{{ task.description }}</td>
-      <button type="button" class="btn btn-outline-primary">Edit</button>
-      <button type="button" class="btn btn-outline-primary" @click="CompleteTask(task.id, task.isCompleted)">Complete</button>
-      <button type="button" class="btn btn-outline-primary" @click="DeleteTask(task.id)">Delete</button>
-    </tr>
-  </tbody>
-</table>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Task</th>
+        <th scope="col">Description</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="task in props.tasks" :key="task.title">
+        <th scope="row">{{ task.title }}</th>
+        <td>{{ task.description }}</td>
+        <button type="button" class="btn btn-outline-primary" @click="openEditTaskPopin(task.id)">Edit</button>
+        <button type="button" class="btn btn-outline-primary" @click="CompleteTask(task.id, task.isCompleted)">Complete</button>
+        <button type="button" class="btn btn-outline-primary" @click="DeleteTask(task.id)">Delete</button>
+      </tr>
+    </tbody>
+  </table>
+  <EditTaskPopin 
+  :visible="isVisible"
+  @closePopin="closeEditTaskPopin"
+  @saveChanges="saveEditTaskPopin"
+  >
+    <template #actions>
+      <div class="mb-3">
+          <label class="form-label">Title</label>
+          <input v-model="title" type="text" class="form-control">
+      </div>
+      <div class="mb-3">
+          <label class="form-label">Description</label>
+          <input v-model="description" type="text" class="form-control">
+      </div>
+    </template>
+  </EditTaskPopin>
 </template>
 
 <style scoped></style>

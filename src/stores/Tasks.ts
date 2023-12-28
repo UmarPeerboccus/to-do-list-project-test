@@ -23,6 +23,13 @@ export const useTaskStore = defineStore("taskSotre", {
             if (index !== -1) {
                 this.tasks[index].isCompleted = !isComplete;
             }
+        },
+        updateTask(id: string, title: string, description: string) {
+            const index = this.tasks.findIndex((t) => t.id === id);
+            if (index !== -1) {
+                this.tasks[index].title = title;
+                this.tasks[index].description = description;
+            }
         }
     },
 });
