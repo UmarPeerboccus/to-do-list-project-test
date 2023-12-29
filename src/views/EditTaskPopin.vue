@@ -34,8 +34,8 @@ function closePopin() {
                 <slot name="actions"></slot>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="closePopin()">Close</button>
-                <button type="button" class="btn btn-secondary" @click="saveChanges()"
+                <button type="button" class="btn btn-dark" data-bs-dismiss="modal" @click="closePopin()">Close</button>
+                <button type="button" class="btn btn-dark" @click="saveChanges()"
                 :class="{'disabled': !title || !description }"
                 >
                 Save changes

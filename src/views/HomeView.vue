@@ -46,7 +46,7 @@ const remainingTask = computed(() => {
                 <input v-model="description" type="text" class="form-control" placeholder="Enter description">
             </div>
             <div class="p-2">
-                <button type="button" class="btn btn-secondary" @click="AddNewTask()"
+                <button type="button" class="btn btn-dark" @click="AddNewTask()"
                 :class="{'disabled': !title || !description }"
                 >
                 Add

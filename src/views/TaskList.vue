@@ -37,7 +37,7 @@ function saveEditTaskPopin() {
 </script>
 
 <template>
-  <table class="table">
+  <table class="table table-bordered text-center" v-if="taskStore.tasks.length > 0">
     <thead>
       <tr>
         <th scope="col">Title</th>
@@ -50,13 +50,13 @@ function saveEditTaskPopin() {
         <td>{{ task.title }}</td>
         <td>{{ task.description }}</td>
         <div class="btn-group" role="group">
-          <button type="button" class="btn btn-secondary" data-bs-toggle="button" @click="CompleteTask(task.id, task.isCompleted)">Complete</button>
-          <button type="button" class="btn btn-secondary" @click="openEditTaskPopin(task.id)"
+          <button type="button" class="btn btn-dark" data-bs-toggle="button" @click="CompleteTask(task.id, task.isCompleted)">Complete</button>
+          <button type="button" class="btn btn-dark" @click="openEditTaskPopin(task.id)"
           :class="{'disabled': task.isCompleted }"
           >
           Edit
           </button>
-          <button type="button" class="btn btn-secondary" @click="DeleteTask(task.id)">Delete</button>
+          <button type="button" class="btn btn-dark" @click="DeleteTask(task.id)">Delete</button>
         </div>
       </tr>
     </tbody>
