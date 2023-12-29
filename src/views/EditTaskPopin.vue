@@ -21,6 +21,7 @@ function closePopin() {
 }
 
 function disabledSaveChangesButton() {
+    let alphaRegex = new RegExp(/^[A-Za-z]+$/);
     let alphaNumericRegex = new RegExp(/^(?=.*[a-zA-Z])(?=.*[0-9])[A-Za-z0-9]+$/);
     let numericRegex = new RegExp(/^[0-9]*$/);
 
@@ -33,8 +34,11 @@ function disabledSaveChangesButton() {
     else if (numericRegex.test(props.title) || numericRegex.test(props.description)) {
         return true;
     }
-    else {
+    else if (alphaRegex.test(props.title) || alphaRegex.test(props.description)) {
         return false;
+    }
+    else {
+        return true;
     }
 }
 </script>

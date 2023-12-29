@@ -29,6 +29,7 @@ const remainingTask = computed(() => {
 });
 
 function disabledAddButton() {
+    let alphaRegex = new RegExp(/^[A-Za-z]+$/);
     let alphaNumericRegex = new RegExp(/^(?=.*[a-zA-Z])(?=.*[0-9])[A-Za-z0-9]+$/);
     let numericRegex = new RegExp(/^[0-9]*$/);
 
@@ -41,8 +42,11 @@ function disabledAddButton() {
     else if (numericRegex.test(title.value) || numericRegex.test(description.value)) {
         return true;
     }
-    else {
+    else if (alphaRegex.test(title.value) || alphaRegex.test(description.value)) {
         return false;
+    }
+    else {
+        return true;
     }
 }
 </script>
