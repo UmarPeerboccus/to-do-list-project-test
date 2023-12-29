@@ -24,6 +24,8 @@ function CompleteTask(id: string, isCompleted: boolean) {
 function openEditTaskPopin(id: string) {
   isVisible.value = true;
   idToModify.value = id;
+  title.value = "";
+  description.value= "";
 }
 
 function closeEditTaskPopin() {

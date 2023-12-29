@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 
-defineProps<{
+const props = defineProps<{
     visible: boolean;
     title: string;
     description: string;
@@ -18,6 +18,24 @@ function saveChanges() {
 
 function closePopin() {
     emit("closePopin");
+}
+
+function disabledSaveChangesButton() {
+    let alphaNumericRegex = new RegExp(/^(?=.*[a-zA-Z])(?=.*[0-9])[A-Za-z0-9]+$/);
+    let numericRegex = new RegExp(/^[0-9]*$/);
+
+    if (!props.title || !props.description) {
+        return true;
+    } 
+    else if (alphaNumericRegex.test(props.title) && alphaNumericRegex.test(props.description)) {
+        return false;
+    }
+    else if (numericRegex.test(props.title) || numericRegex.test(props.description)) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 </script>
 
@@ -36,7 +54,7 @@ function closePopin() {
             <div class="modal-footer">
                 <button type="button" class="btn btn-dark" data-bs-dismiss="modal" @click="closePopin()">Close</button>
                 <button type="button" class="btn btn-dark" @click="saveChanges()"
-                :class="{'disabled': !title || !description }"
+                :class="{'disabled': disabledSaveChangesButton() }"
                 >
                 Save changes
                 </button>

@@ -27,6 +27,24 @@ const remainingTask = computed(() => {
         return t.isCompleted === false;
     }).length;
 });
+
+function disabledAddButton() {
+    let alphaNumericRegex = new RegExp(/^(?=.*[a-zA-Z])(?=.*[0-9])[A-Za-z0-9]+$/);
+    let numericRegex = new RegExp(/^[0-9]*$/);
+
+    if (!title.value || !description.value) {
+        return true;
+    } 
+    else if (alphaNumericRegex.test(title.value) && alphaNumericRegex.test(description.value)) {
+        return false;
+    }
+    else if (numericRegex.test(title.value) || numericRegex.test(description.value)) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
 </script>
 
 <template>
@@ -47,7 +65,7 @@ const remainingTask = computed(() => {
             </div>
             <div class="p-2">
                 <button type="button" class="btn btn-dark" @click="AddNewTask()"
-                :class="{'disabled': !title || !description }"
+                :class="{'disabled': disabledAddButton() }"
                 >
                 Add
                 </button>
