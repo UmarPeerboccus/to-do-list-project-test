@@ -40,14 +40,14 @@ function saveEditTaskPopin() {
   <table class="table">
     <thead>
       <tr>
-        <th scope="col">Task</th>
+        <th scope="col">Title</th>
         <th scope="col">Description</th>
         <th scope="col">Action</th>
       </tr>
     </thead>
     <tbody>
       <tr v-for="task in props.tasks" :key="task.title">
-        <th scope="row">{{ task.title }}</th>
+        <td>{{ task.title }}</td>
         <td>{{ task.description }}</td>
         <div class="btn-group" role="group">
           <button type="button" class="btn btn-secondary" data-bs-toggle="button" @click="CompleteTask(task.id, task.isCompleted)">Complete</button>
